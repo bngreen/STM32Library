@@ -43,7 +43,7 @@ THE SOFTWARE.
 int8_t I2Cdev_readBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_t *data) {
     int8_t count = 0;
 
-    if (HAL_I2C_Mem_Read(i2cDev<<1, devAddr, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length, 0x10000)!=0)
+    if (HAL_I2C_Mem_Read(i2cDev, devAddr<<1, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length, 0x10000)!=0)
 		return -1;
 
     return length;
@@ -56,7 +56,7 @@ int8_t I2Cdev_readBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_
  * @return Status of read operation (true = success)
  */
 int8_t I2Cdev_readByte(uint8_t devAddr, uint8_t regAddr, uint8_t *data) {
-	return HAL_I2C_Mem_Read(i2cDev<<1, devAddr, regAddr ,I2C_MEMADD_SIZE_8BIT, data, 1, 0x1000) == 0;
+	return HAL_I2C_Mem_Read(i2cDev, devAddr<<1, regAddr ,I2C_MEMADD_SIZE_8BIT, data, 1, 0x1000) == 0;
 }
 
 /** Read multiple words from a 16-bit device register.
@@ -67,7 +67,7 @@ int8_t I2Cdev_readByte(uint8_t devAddr, uint8_t regAddr, uint8_t *data) {
  * @return Number of words read (-1 indicates failure)
  */
 int8_t I2Cdev_readWords(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint16_t *data) {
-        if (HAL_I2C_Mem_Read(i2cDev<<1, devAddr, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length*2, 0x1000)!=0)
+        if (HAL_I2C_Mem_Read(i2cDev, devAddr<<1, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length*2, 0x1000)!=0)
 		return -1;
 
     return length;
@@ -168,7 +168,7 @@ int8_t I2Cdev_readBitsW(uint8_t devAddr, uint8_t regAddr, uint8_t bitStart, uint
  * @return Status of operation (true = success)
  */
 bool I2Cdev_writeBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_t* data) {
-    return HAL_I2C_Mem_Write(i2cDev<<1, devAddr, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length, 0x1000)==0;
+    return HAL_I2C_Mem_Write(i2cDev, devAddr<<1, regAddr ,I2C_MEMADD_SIZE_8BIT, data, length, 0x1000)==0;
 }
 
 /** Write single byte to an 8-bit device register.
