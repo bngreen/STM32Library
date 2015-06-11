@@ -24,12 +24,12 @@ static void setTimCCR(TIM_HandleTypeDef* tim, PWMChannel_t channel, uint32_t val
 }
 
 void PWMSetDuty(TIM_HandleTypeDef* tim, PWMChannel_t channels, uint16_t duty){
-	uint64_t nv = ((uint64_t)SATURATE(duty, 0, 10000)*(tim->Instance->ARR+1))/10000-1;
+	uint64_t nv = ((uint64_t)SATURATE(duty, 0, 10000)*(tim->Instance->ARR))/10000;
 	setTimCCR(tim, channels, nv);
 }
 
 void PWMSetDutyF(TIM_HandleTypeDef* tim, PWMChannel_t channels, float duty){
-	float nv = ((float)SATURATE(duty, 0.0f, 1.0f)*(tim->Instance->ARR+1))-1;
+	float nv = ((float)SATURATE(duty, 0.0f, 1.0f)*(tim->Instance->ARR));
 	setTimCCR(tim, channels, roundf(nv));
 }
 

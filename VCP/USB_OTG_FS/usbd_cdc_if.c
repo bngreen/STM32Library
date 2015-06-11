@@ -404,6 +404,11 @@ char readChar(){
 
 static char* myitoa(char* str, int number){
 	int i, n;
+	if(number == 0){
+		*(str++) = '0';
+		return str;
+	}
+
 	bool found = false;
 	if(number < 0){
 		*(str++) = '-';
